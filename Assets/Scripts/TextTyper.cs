@@ -4,10 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class TextTyper : MonoBehaviour
 {
-    TMP_Text m_text;
+    TMP_Text m_text = null;
 
     [SerializeField]
-    string m_message;
+    string m_message = "";
     int m_index = 0;
 
     [SerializeField]
