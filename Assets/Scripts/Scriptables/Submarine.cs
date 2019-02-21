@@ -26,28 +26,6 @@ public class Submarine : ScriptableObject {
             if (m_level < UpgradeLevel.Masterwork)
                 m_level++;
         }
-
-        public void Reduce(float _value) {
-            if (_value <= 0)
-                return;
-
-            Current -= _value;
-        }
-
-        public void Augment(float _value) {
-            if (_value <= 0)
-                return;
-
-            Current += _value;
-        }
-
-        public void Empty() {
-            Current = 0;
-        }
-
-        public void Full() {
-            Current = Maximum;
-        }
     }
 
     [Header("Upgradables")]
