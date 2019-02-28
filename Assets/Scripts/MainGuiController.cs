@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MainGuiController : MonoBehaviour
 {
@@ -68,6 +69,11 @@ public class MainGuiController : MonoBehaviour
     [Space]
     [SerializeField]
     float m_batteryRefillSpeed = 5f;
+    [SerializeField]
+    Button m_repairArmorButton = null;
+    [SerializeField]
+    float m_armorRepairAmount = 25f;
+
 
     [Space]
     [SerializeField]
@@ -80,6 +86,7 @@ public class MainGuiController : MonoBehaviour
     GameObject m_storageGroup_Advanced = null;
     [SerializeField]
     GameObject m_storageGroup_Masterwork = null;
+
 
     public void SetCompassAngle(float _angle) {
         m_compass.Angle = _angle;
@@ -117,6 +124,11 @@ public class MainGuiController : MonoBehaviour
     public void UpgradeArmor() {
         m_submarine.Armor.Upgrade();
         UpdateSlot(m_submarine.Armor, m_armor);
+        SetRightMeter(m_submarine.Armor.Ratio);
+    }
+
+    public void RepairArmor() {
+        m_submarine.Armor.Current += 25.0f;
         SetRightMeter(m_submarine.Armor.Ratio);
     }
 
@@ -173,6 +185,7 @@ public class MainGuiController : MonoBehaviour
         }
 
         SetEnableMaintenance(m_enableMaintenance);
+        m_repairArmorButton.enabled = m_submarine.Armor.Ratio < 1.0f;
     }
 
     void Update() {
@@ -195,6 +208,8 @@ public class MainGuiController : MonoBehaviour
             m_submarine.Battery.Current += m_batteryRefillSpeed;
             SetLeftMeter(m_submarine.Battery.Ratio);
         }
+
+        SetRightMeter(m_submarine.Armor.Ratio);
             
     }
 
@@ -213,5 +228,31 @@ public class MainGuiController : MonoBehaviour
         _group.alpha = Mathf.Clamp01(_group.alpha + _speed);
 
         return (_in) ? (_group.alpha >= 1.0f) : (_group.alpha <= 0.0f);
+    }
+
+    public void ResetUpgrades() {
+        m_submarine.Battery.Reset();
+        m_submarine.Armor.Reset();
+        m_submarine.Storage.Reset();
+        m_submarine.Taser.Reset();
+        m_submarine.Propulsion.Reset();
+
+        UpdateSlot(m_submarine.Battery, m_battery);
+        UpdateSlot(m_submarine.Armor, m_armor);
+        UpdateSlot(m_submarine.Storage, m_storage);
+        UpdateSlot(m_submarine.Taser, m_taser);
+        UpdateSlot(m_submarine.Propulsion, m_propulsion);
+
+        SetStorageSpace(m_submarine.Storage.Level);
+    }
+
+    public void QuitButton() {
+#if UNITY_EDITOR
+        Debug.Log("Quit");
+
+#else
+        Application.Quit();
+
+#endif
     }
 }

@@ -26,6 +26,11 @@ public class Submarine : ScriptableObject {
             if (m_level < UpgradeLevel.Masterwork)
                 m_level++;
         }
+
+        public void Reset() {
+            m_level = UpgradeLevel.Basic;
+            Current = Current;
+        }
     }
 
     [Header("Upgradables")]
