@@ -552,7 +552,6 @@ GameObject:
   - component: {fileID: 224602307751249234}
   - component: {fileID: 222020046607174274}
   - component: {fileID: 114091541205898214}
-  - component: {fileID: 114506590976938048}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -3186,19 +3185,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 0.71, y: 0}
   m_UseGraphicAlpha: 1
---- !u!114 &114506590976938048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1321313131080654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a032f28ee7fcbbf4fa3d68bb880af316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  draggable: 1
-  resetToPos: 1
 --- !u!114 &114527285888834738
 MonoBehaviour:
   m_ObjectHideFlags: 1

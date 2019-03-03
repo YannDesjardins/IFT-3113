@@ -26101,7 +26101,7 @@ Prefab:
       value: InventoryUI
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 114506590976938048, guid: 73030ff1d4c936b43a5ae38dda785163, type: 2}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 73030ff1d4c936b43a5ae38dda785163, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1279547644
