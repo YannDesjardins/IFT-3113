@@ -3,7 +3,6 @@
 namespace Thalass.Player {
     public class ExtractorController : MonoBehaviour {
 
-        [Header("Entities")]
         [SerializeField]
         Entities.Submarine m_submarine = null;
 
@@ -53,11 +52,20 @@ namespace Thalass.Player {
                 //Update weaponry damage.
                 m_submarine.Weaponry.Current = m_baseDamage * (1 - distance / Range);
 
-                //If ressource deposit.
+                //If deposit.
                 Entities.Deposit deposit = hit.collider.gameObject.GetComponent<Entities.Deposit>();
 
                 if (deposit && distance < Range) {
                     deposit.Grind(this);
+                    m_effect.extract = true;
+                    m_effect.triggerExtract = true;
+                }
+
+                //If wildlife.
+                WildlifeController wildlife = hit.collider.gameObject.GetComponent<WildlifeController>();
+
+                if (wildlife && distance < Range) {
+                    wildlife.GetDamaged(m_submarine.Weaponry.Current);
                     m_effect.extract = true;
                     m_effect.triggerExtract = true;
                 }

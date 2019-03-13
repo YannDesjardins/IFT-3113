@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad25205730cfae489497492be7814c2, type: 3}
+  m_Name: Free_Small_Passive
+  m_EditorClassIdentifier: 
+  m_id: f0e92608-61c4-4c98-b1bd-817663452fe1
+  m_name: Small Fish
+  m_health: 20
+  m_damage: 0
+  m_comportement: 0
+  m_crusingSpeed: 1
+  m_reactionSpeed: 7
+  m_reactionRange: 2
+  m_territoryRange: 0
+  m_reactionCooldown: 2

@@ -89,4 +89,13 @@ namespace Thalass.Entities {
         }
         #endregion
     }
+
+    public enum Level {
+        None = 0,
+        Weak,
+        Normal,
+        Strong,
+        Hard,
+        Epic
+    }
 }

@@ -5,11 +5,10 @@
 /// Réécriture par Marc Lauzon.
 /// </summary>
 
-namespace Thalass.Player {
+namespace Thalass {
     [RequireComponent(typeof(Rigidbody))]
     public class SubmarineController : MonoBehaviour {
 
-        [Header("Entities")]
         [SerializeField]
         Entities.Submarine m_submarine = null;
 
@@ -35,11 +34,17 @@ namespace Thalass.Player {
         void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
             m_rigidbody.drag = m_waterDrag;
+            m_rigidbody.angularDrag = m_waterDrag;
         }
 
         void Update() {
+            if (m_submarine.Battery.Current <= 0) {
+                Debug.Log("EMERGENCY ESCAPE");
+                return;
+            }
+
             Move();
-            if(Cursor.lockState == CursorLockMode.Locked)
+            if(Cursor.lockState != CursorLockMode.None)
                 Turn();
         }
 
@@ -60,7 +65,7 @@ namespace Thalass.Player {
             m_rigidbody.velocity = m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.deltaTime;
 
             //Consume energy on move.
-            if (Vector3.Distance(move, Vector3.zero) < m_moveDeadZone) {
+            if (Vector3.Distance(move, Vector3.zero) > m_moveDeadZone) {
                 m_submarine.Battery.Current -= m_energyConsumption;
             }
         }
@@ -80,8 +85,26 @@ namespace Thalass.Player {
 
             //Restore orientation.
             if (Quaternion.Angle(turn, Quaternion.identity) < m_moveDeadZone) {
-                m_rigidbody.rotation = Quaternion.Lerp(m_rigidbody.rotation, Quaternion.Euler(0, m_rigidbody.rotation.eulerAngles.y, 0), m_waterDrag);
+                m_rigidbody.rotation = Quaternion.Lerp(m_rigidbody.rotation, Quaternion.Euler(0, m_rigidbody.rotation.eulerAngles.y, 0), m_waterDrag *2);
             }
+        }
+
+        public void GetDamaged(float _damage) {
+            if (m_submarine.Armor.Current >= _damage) {
+                m_submarine.Armor.Current -= _damage;
+            } else {
+                _damage -= m_submarine.Armor.Current;
+                m_submarine.Armor.Current = 0;
+
+                m_submarine.Battery.Current -= _damage;
+            }
+
+            m_rigidbody.velocity *= 1.25f;
+            m_rigidbody.angularVelocity *= 0f;
+        }
+
+        void OnCollisionEnter(Collision collision) {
+
         }
     }
 }

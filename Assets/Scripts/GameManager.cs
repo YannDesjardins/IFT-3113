@@ -18,6 +18,6 @@ public class GameManager : MonoBehaviour
     }
 
     void ToggleCursor() {
-        Cursor.lockState = (Cursor.lockState == CursorLockMode.None) ? CursorLockMode.Confined : CursorLockMode.None;
+        Cursor.lockState = (Cursor.lockState == CursorLockMode.None) ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }
