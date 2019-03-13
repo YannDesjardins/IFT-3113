@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Thalass.Inventory {
     [Serializable]
-    public class Stack {
+    public class Stack : IEquatable<Stack> {
 
         public const int MAX_PER_STACK = 10;
 
@@ -61,5 +62,40 @@ namespace Thalass.Inventory {
         public void Empty() {
             Remove(Quantity);
         }
+
+        #region Equatable
+        public override bool Equals(object obj) {
+            return Equals(obj as Stack);
+        }
+
+        public bool Equals(Stack other) {
+            return other != null &&
+                   EqualityComparer<Item>.Default.Equals(m_item, other.m_item) &&
+                   Quantity == other.Quantity;
+        }
+
+        public override int GetHashCode() {
+            var hashCode = 1505572158;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(ID);
+            return hashCode;
+        }
+
+        public static bool operator ==(Stack stack1, Stack stack2) {
+            return EqualityComparer<Stack>.Default.Equals(stack1, stack2);
+        }
+
+        public static bool operator !=(Stack stack1, Stack stack2) {
+            return !(stack1 == stack2);
+        }
+
+        public static bool operator <(Stack stack1, Stack stack2) {
+            return (stack1.m_item == stack2.m_item && stack1.Quantity < stack2.Quantity);
+        }
+
+        public static bool operator >(Stack stack1, Stack stack2) {
+            return (stack1.m_item == stack2.m_item && stack1.Quantity > stack2.Quantity);
+        }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,12 +9,12 @@ using UnityEngine;
 
 namespace Thalass.Inventory {
     [CreateAssetMenu(fileName = "Item", menuName = "Inventory/Item")]
-    public class Item : ScriptableObject {
+    public class Item : ScriptableObject, IEquatable<Item> {
 
         [SerializeField]
-        [Tooltip("Do not edit")]
+        [Tooltip("Unique ID | For information only.")]
         string m_id = "";
-        public Guid ID { get; }
+        public Guid ID { get; private set; } = Guid.NewGuid();
 
         [Space]
         [SerializeField]
@@ -35,9 +36,46 @@ namespace Thalass.Inventory {
             get { return m_description; }
         }
 
-        Item() {
-            ID = new Guid();
+        public Item(string _name, Sprite _icon, string _description) 
+            : this(Guid.NewGuid(), _name, _icon, _description) { 
+        }
+
+        public Item(Guid _id, string _name, Sprite _icon, string _description) {
+            ID = _id;
+            m_name = _name;
+            m_icon = _icon;
+            m_description = _description;
+        }
+
+        void OnValidate() {
             m_id = ID.ToString();
         }
+
+        #region Equatable interface.
+        public override bool Equals(object obj) {
+            return Equals(obj as Item);
+        }
+
+        public bool Equals(Item other) {
+            return other != null &&
+                   base.Equals(other) &&
+                   ID.Equals(other.ID);
+        }
+
+        public override int GetHashCode() {
+            var hashCode = 2082127350;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(ID);
+            return hashCode;
+        }
+
+        public static bool operator ==(Item item1, Item item2) {
+            return EqualityComparer<Item>.Default.Equals(item1, item2);
+        }
+
+        public static bool operator !=(Item item1, Item item2) {
+            return !(item1 == item2);
+        }
+        #endregion
     }
 }
