@@ -39,7 +39,7 @@ namespace Thalass.Player {
 
         void Update() {
             Move();
-            if(Cursor.lockState != CursorLockMode.None)
+            if(Cursor.lockState == CursorLockMode.Locked)
                 Turn();
         }
 
