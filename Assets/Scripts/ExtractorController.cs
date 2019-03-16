@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Défi 2 - Guillaume Dubé
+/// Réécriture par Marc Lauzon.
+/// </summary>
+
 namespace Thalass.Player {
     public class ExtractorController : MonoBehaviour {
 

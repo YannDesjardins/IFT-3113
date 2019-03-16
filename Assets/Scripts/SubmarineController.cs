@@ -26,15 +26,23 @@ namespace Thalass {
         [SerializeField]
         float m_moveDeadZone = 0.2f;
 
+        [Header("Interface")]
+        [SerializeField]
+        UI.MeterController m_batteryMeter = null;
+        [SerializeField]
+        UI.MeterController m_armorMeter = null;
+
         Rigidbody m_rigidbody = null;
         Vector3 m_moveVelocity = Vector3.zero;
         Quaternion m_turnVelocity = Quaternion.identity;
         
-
         void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
             m_rigidbody.drag = m_waterDrag;
             m_rigidbody.angularDrag = m_waterDrag;
+
+            m_submarine.Battery.Subscribe(m_batteryMeter);
+            m_submarine.Armor.Subscribe(m_armorMeter);
         }
 
         void Update() {

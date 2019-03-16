@@ -75,6 +75,7 @@ namespace Thalass.Entities {
             if (!m_observers.Contains(_observer))
                 m_observers.Add(_observer);
 
+            _observer.OnNext(new Values(Current, Maximum));
             return new Unsubscriber<Values>(m_observers, _observer);
         }
 
