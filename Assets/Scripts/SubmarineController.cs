@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Défi 4 - Sébastien Bruere
@@ -29,8 +30,11 @@ namespace Thalass {
         [Header("Interface")]
         [SerializeField]
         UI.MeterController m_batteryMeter = null;
+        IDisposable m_batteryObserver = null;
+
         [SerializeField]
         UI.MeterController m_armorMeter = null;
+        IDisposable m_armorObserver = null;
 
         Rigidbody m_rigidbody = null;
         Vector3 m_moveVelocity = Vector3.zero;
@@ -41,8 +45,13 @@ namespace Thalass {
             m_rigidbody.drag = m_waterDrag;
             m_rigidbody.angularDrag = m_waterDrag;
 
-            m_submarine.Battery.Subscribe(m_batteryMeter);
-            m_submarine.Armor.Subscribe(m_armorMeter);
+            m_batteryObserver = m_submarine.Battery.Subscribe(m_batteryMeter);
+            m_armorObserver = m_submarine.Armor.Subscribe(m_armorMeter);
+        }
+
+        void OnDisable() {
+            m_batteryObserver.Dispose();
+            m_armorObserver.Dispose();
         }
 
         void Update() {
