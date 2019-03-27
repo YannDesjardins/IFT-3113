@@ -1156,6 +1156,7 @@ GameObject:
   - component: {fileID: 526336583}
   - component: {fileID: 526336582}
   - component: {fileID: 526336581}
+  - component: {fileID: 526336585}
   m_Layer: 5
   m_Name: Armor_Slider
   m_TagString: Untagged
@@ -1226,7 +1227,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1282,6 +1283,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526336579}
   m_CullTransparentMesh: 0
+--- !u!114 &526336585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526336579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f68667924a4bc419c6e70a0c2c6b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_slider: {fileID: 526336581}
+  m_button: {fileID: 1833504694}
+  m_bool: 0
 --- !u!1 &543396903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,6 +2734,7 @@ GameObject:
   - component: {fileID: 830242600}
   - component: {fileID: 830242602}
   - component: {fileID: 830242601}
+  - component: {fileID: 830242603}
   m_Layer: 5
   m_Name: Repair
   m_TagString: Untagged
@@ -2786,6 +2803,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830242599}
   m_CullTransparentMesh: 0
+--- !u!114 &830242603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830242599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d457cba19822ebd4994b540bb9d7dbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_submarine: {fileID: 11400000, guid: 95319d5119b3b9b45a78bdfff19442f3, type: 2}
+  m_battery: {fileID: 2106448702}
+  m_batteryRepairRate: 20
+  m_armor: {fileID: 526336585}
+  m_armorRepairRate: 5
 --- !u!1 &914330108
 GameObject:
   m_ObjectHideFlags: 0
@@ -5600,7 +5634,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1833504695}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 830242603}
+        m_MethodName: RepairArmor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1833504695
@@ -5616,7 +5661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0.8862745, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6161,6 +6206,7 @@ GameObject:
   - component: {fileID: 2106448700}
   - component: {fileID: 2106448699}
   - component: {fileID: 2106448698}
+  - component: {fileID: 2106448702}
   m_Layer: 5
   m_Name: Energy_Slider
   m_TagString: Untagged
@@ -6231,7 +6277,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6287,3 +6333,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106448696}
   m_CullTransparentMesh: 0
+--- !u!114 &2106448702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106448696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f68667924a4bc419c6e70a0c2c6b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_slider: {fileID: 2106448698}
+  m_button: {fileID: 667887521}
+  m_bool: 1

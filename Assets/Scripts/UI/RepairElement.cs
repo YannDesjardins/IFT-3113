@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Thalass.UI {
-    public class UpgradeElement : MonoBehaviour, IObserver<Element.Values> {
+    public class RepairElement : MonoBehaviour, IObserver<Element.Values> {
+
+        [SerializeField]
+        Slider m_slider = null;
 
         [SerializeField]
         Button m_button = null;
 
         [SerializeField]
-        Slider m_slider = null;
+        bool m_bool = false;
 
         public void OnCompleted() {
             throw new NotImplementedException();
@@ -21,8 +24,10 @@ namespace Thalass.UI {
         }
 
         public void OnNext(Element.Values value) {
-            m_slider.value = value.Level;
-            m_button.interactable = (value.Level < 5);
+            m_slider.maxValue = value.Maximum;
+            m_slider.value = value.Current;
+
+            m_button.interactable = (value.Current < value.Maximum) ^ m_bool;
         }
     }
 }
