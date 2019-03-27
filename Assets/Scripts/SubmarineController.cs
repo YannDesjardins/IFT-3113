@@ -39,6 +39,8 @@ namespace Thalass {
         Rigidbody m_rigidbody = null;
         Vector3 m_moveVelocity = Vector3.zero;
         Quaternion m_turnVelocity = Quaternion.identity;
+
+        public AudioSource submarineEngineSound;
         
         void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
@@ -63,6 +65,22 @@ namespace Thalass {
             Move();
             if(Cursor.lockState != CursorLockMode.None)
                 Turn();
+
+            if (Input.GetKey("d") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("w") || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
+            {
+                if (!submarineEngineSound.isPlaying)
+                {
+                    submarineEngineSound.Play();
+                }
+            }
+            else
+            {
+
+                if (submarineEngineSound.isPlaying)
+                {
+                    submarineEngineSound.Stop();
+                }
+            }
         }
 
         void Move() {
