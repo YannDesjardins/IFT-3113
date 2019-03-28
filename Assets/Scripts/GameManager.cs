@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,6 +34,8 @@ namespace Thalass {
         [Space]
         [SerializeField]
         TMP_Text m_countDown = null;
+
+        bool isInHub = false;
     
         [SerializeField]
         AudioClip softMusic;
@@ -60,14 +64,16 @@ namespace Thalass {
         }
 
         void LateUpdate() {
-            if(m_submarine.transform.position.y > m_exitHeight) {
+            if(m_submarine.transform.position.y > m_exitHeight && !isInHub) {
                 m_timerObject.SetActive(true);
 
-                if (m_exitTimerLeft <= 0)
+                if (m_exitTimerLeft < 0 && !isInHub)
                 {
+                    isInHub = true;
                     m_countDown.text = m_exitTimerLeft.ToString("F3");
-                    Invoke("GoToUpgradeSubmarineScene", 1.0f);
-                } else if (m_isExiting) {
+                    StartCoroutine(GoToUpgradeSubmarineScene());
+                }
+                else if (m_isExiting) {
                     m_exitTimerLeft -= Time.fixedDeltaTime;
                     m_countDown.text = m_exitTimerLeft.ToString("F3");
                 } else {
@@ -83,8 +89,9 @@ namespace Thalass {
             }
         }
 
-        private void GoToUpgradeSubmarineScene()
+        private IEnumerator GoToUpgradeSubmarineScene()
         {
+            yield return new WaitForSeconds(1);
             SceneManager.LoadScene("Upgrade_Submarine", LoadSceneMode.Additive);
         }
 
