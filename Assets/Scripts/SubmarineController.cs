@@ -44,8 +44,8 @@ namespace Thalass {
         
         void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
-            m_rigidbody.drag = m_waterDrag;
-            m_rigidbody.angularDrag = m_waterDrag;
+            //m_rigidbody.drag = m_waterDrag;
+            //m_rigidbody.angularDrag = m_waterDrag;
 
             m_batteryObserver = m_submarine.Battery.Subscribe(m_batteryMeter);
             m_armorObserver = m_submarine.Armor.Subscribe(m_armorMeter);
@@ -58,17 +58,15 @@ namespace Thalass {
             m_armorObserver.Dispose();
         }
 
-        void Update() {
+        void FixedUpdate() {
             if (!this.isAlive()) {
                 Debug.Log("EMERGENCY ESCAPE");
                 return;
             }
 
-            if (this.GetComponent<EntityController>().isAlive())
-                Move();
+            Turn();
+            Move();
 
-            if (Cursor.lockState != CursorLockMode.None)
-                Turn();
 
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
             {
@@ -95,7 +93,8 @@ namespace Thalass {
             m_moveVelocity = Vector3.Lerp(m_moveVelocity, Vector3.zero, m_waterDrag);
 
             //Apply.
-            m_rigidbody.velocity = m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.deltaTime;
+            //m_rigidbody.velocity = m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.fixedDeltaTime;
+            m_rigidbody.MovePosition(m_rigidbody.position + m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.fixedDeltaTime / 10);
 
             //Consume energy on move.
             if (Vector3.Distance(move, Vector3.zero) > m_moveDeadZone) {
@@ -132,8 +131,8 @@ namespace Thalass {
                 m_submarine.Battery.Current -= _damage;
             }
 
-            m_rigidbody.velocity *= 1.25f;
-            m_rigidbody.angularVelocity *= 0f;
+            //m_rigidbody.velocity *= 0f;
+            //m_rigidbody.angularVelocity *= 0f;
         }
 
         public bool isAlive()
