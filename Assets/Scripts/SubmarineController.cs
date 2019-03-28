@@ -11,11 +11,12 @@ namespace Thalass {
     public class SubmarineController : MonoBehaviour {
 
         [SerializeField]
-        Entities.Submarine m_submarine = null;
+        public Entities.Submarine m_submarine = null;
 
         [Space]
         [SerializeField]
         Camera m_camera = null;
+
 
         [Header("Movement")]
         [SerializeField]
@@ -60,7 +61,14 @@ namespace Thalass {
 
         void FixedUpdate() {
             if (!this.isAlive()) {
-                Debug.Log("EMERGENCY ESCAPE");
+
+                //Death move slowdown
+                m_moveVelocity = Vector3.Lerp(m_moveVelocity, Vector3.zero, m_waterDrag);
+                m_rigidbody.MovePosition(m_rigidbody.position + m_moveVelocity.normalized * m_moveVelocity.magnitude * Time.fixedDeltaTime / 10);
+
+                // \Death turn slowdown
+                m_turnVelocity = Quaternion.Lerp(m_turnVelocity, Quaternion.identity, m_waterDrag);
+                m_rigidbody.rotation *= m_turnVelocity.normalized;
                 return;
             }
 

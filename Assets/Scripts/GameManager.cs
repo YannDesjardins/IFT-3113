@@ -11,6 +11,10 @@ namespace Thalass {
         [SerializeField]
         GameObject m_timerObject = null;
 
+        [SerializeField]
+        BatteryManager m_batteryManager = null;
+        System.IDisposable m_batteryObserver = null;
+
         [Space]
         [SerializeField]
         float m_exitHeight = 30.0f;
@@ -32,6 +36,8 @@ namespace Thalass {
             Cursor.visible = false;
             SoundManager.instance.PlayMusic(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
             SoundManager.instance.PlaySingle(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
+
+            m_batteryObserver = m_submarine.m_submarine.Battery.Subscribe(m_batteryManager);
         }
 
         void Update() {
