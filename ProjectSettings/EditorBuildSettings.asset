@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: e01268e68fb9a4f43abc32b0678e1aa3
+  - enabled: 1
+    path: Assets/Scenes/Upgrade_Submarine.unity
+    guid: 4a653931691ce8240ae49d3efc6ee0b8
   m_configObjects: {}

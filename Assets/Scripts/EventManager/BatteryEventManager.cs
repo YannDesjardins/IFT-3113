@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Thalass
 {
-    public class BatteryManager : MonoBehaviour, IObserver<Entities.Element.Values>
+    public class BatteryEventManager : MonoBehaviour, IObserver<Entities.Element.Values>
     {
         public void OnCompleted()
         {

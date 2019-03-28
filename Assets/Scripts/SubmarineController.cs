@@ -132,7 +132,8 @@ namespace Thalass {
         public void GetDamaged(float _damage) {
             if (m_submarine.Armor.Current >= _damage) {
                 m_submarine.Armor.Current -= _damage;
-            } else {
+            }
+            else {
                 _damage -= m_submarine.Armor.Current;
                 m_submarine.Armor.Current = 0;
 
@@ -145,7 +146,7 @@ namespace Thalass {
 
         public bool isAlive()
         {
-            if (m_submarine.Battery.Current <= 0)
+            if (m_submarine.Battery.Current <= 0 || m_submarine.Armor.Current <= 0)
             {
                 return false;
             }
