@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Thalass {
     public class GameManager : MonoBehaviour {
@@ -62,19 +63,29 @@ namespace Thalass {
             if(m_submarine.transform.position.y > m_exitHeight) {
                 m_timerObject.SetActive(true);
 
-                if (m_isExiting) {
+                if (m_exitTimerLeft <= 0)
+                {
+                    m_countDown.text = m_exitTimerLeft.ToString("F3");
+                    Invoke("GoToUpgradeSubmarineScene", 1.0f);
+                } else if (m_isExiting) {
                     m_exitTimerLeft -= Time.fixedDeltaTime;
                     m_countDown.text = m_exitTimerLeft.ToString("F3");
                 } else {
                     m_exitTimerLeft = m_exitTimerDelay;
                     m_isExiting = true;
                 }
-            } else {
+            }
+            else {
                 m_timerObject.SetActive(false);
 
                 if (m_isExiting)
                     m_isExiting = false;
             }
+        }
+
+        private void GoToUpgradeSubmarineScene()
+        {
+            SceneManager.LoadScene("Upgrade_Submarine", LoadSceneMode.Additive);
         }
 
         void ToggleCursor() {
