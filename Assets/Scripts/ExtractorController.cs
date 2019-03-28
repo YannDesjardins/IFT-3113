@@ -49,6 +49,7 @@ namespace Thalass.Player {
         }
 
         void Shoot() {
+            bool collision = false;
             if (Physics.Raycast(m_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)) {
                 transform.LookAt(hit.point);
                 float distance = Vector3.Distance(transform.position, hit.point);
@@ -63,6 +64,7 @@ namespace Thalass.Player {
                     deposit.Grind(this);
                     m_effect.extract = true;
                     m_effect.triggerExtract = true;
+                    collision = true;
                 }
 
                 //If wildlife.
@@ -71,13 +73,26 @@ namespace Thalass.Player {
                 if (wildlife && distance < Range) {
                     m_effect.extract = true;
                     m_effect.triggerExtract = true;
+                    collision = true;
                 }
 
                 //If Enemy
                 if (hit.collider.gameObject != null && hit.collider.gameObject.GetComponent<EnemyController>() != null)
                 {
                     hit.collider.gameObject.GetComponent<EntityController>().takeDamage((int)m_submarine.Weaponry.Current);
+                    collision = true;
                 }
+
+                if (!collision)
+                {
+                    m_effect.extract = false;
+                    m_effect.triggerExtract = false;
+                }
+            }
+            else
+            {
+                m_effect.extract = false;
+                m_effect.triggerExtract = false;
             }
         }
 
