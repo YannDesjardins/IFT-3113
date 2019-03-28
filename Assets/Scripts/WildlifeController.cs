@@ -29,10 +29,8 @@ namespace Thalass {
         Vector3 m_reactionSource = Vector3.zero;
         Reaction m_reaction = Reaction.Roaming;
 
-        float m_health = 0;
-
         void Start() {
-            m_health = m_wildlife.Health;
+            //m_health = m_wildlife.Health;
 
             m_spawnPosition = transform.position;
             GenerateTarget(transform.position);
@@ -111,17 +109,6 @@ namespace Thalass {
             m_rigidbody.AddForce(direction * _speed * Time.deltaTime, ForceMode.Impulse);
         }
 
-        public void GetDamaged(float _damage) {
-            m_health -= _damage;
-
-            if (m_health > 0)
-                Death();
-        }
-
-        void Death() {
-            Destroy(gameObject);
-        }
-
         #region Trigger reactions
         void OnTriggerEnter(Collider other) {
             //If Submarine within range.
@@ -187,7 +174,7 @@ namespace Thalass {
         void OnCollisionEnter(Collision collision) {
             SubmarineController submarine = collision.gameObject.GetComponent<SubmarineController>();
             if (m_reaction.HasFlag(Reaction.Attacking) && submarine) {
-                submarine.GetDamaged(m_wildlife.Damage);
+                submarine.GetComponent<EntityController>().takeDamage(this.GetComponent<EntityController>().getDamage());
                 m_lastReaction = Time.timeSinceLevelLoad;
                 m_reaction = Reaction.Stunned;
 
@@ -197,7 +184,6 @@ namespace Thalass {
         }
         #endregion
     }
-
 
     public enum Reaction {
         None = 0,

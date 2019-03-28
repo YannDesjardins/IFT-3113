@@ -23,10 +23,15 @@ namespace Thalass {
         [Space]
         [SerializeField]
         TMP_Text m_countDown = null;
+    
+        [SerializeField]
+        AudioClip softMusic;
 
         void Start() {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            SoundManager.instance.PlayMusic(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
+            SoundManager.instance.PlaySingle(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
         }
 
         void Update() {

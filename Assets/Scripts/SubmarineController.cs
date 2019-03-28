@@ -40,7 +40,7 @@ namespace Thalass {
         Vector3 m_moveVelocity = Vector3.zero;
         Quaternion m_turnVelocity = Quaternion.identity;
 
-        public AudioSource submarineEngineSound;
+        public AudioClip submarineEngineSound;
         
         void Start() {
             m_rigidbody = GetComponent<Rigidbody>();
@@ -49,6 +49,8 @@ namespace Thalass {
 
             m_batteryObserver = m_submarine.Battery.Subscribe(m_batteryMeter);
             m_armorObserver = m_submarine.Armor.Subscribe(m_armorMeter);
+            m_submarine.Armor.Current = m_submarine.Armor.Maximum;
+            m_submarine.Battery.Current = m_submarine.Battery.Maximum;
         }
 
         void OnDisable() {
@@ -57,29 +59,25 @@ namespace Thalass {
         }
 
         void Update() {
-            if (m_submarine.Battery.Current <= 0) {
+            if (!this.isAlive()) {
                 Debug.Log("EMERGENCY ESCAPE");
                 return;
             }
 
-            Move();
-            if(Cursor.lockState != CursorLockMode.None)
+            if (this.GetComponent<EntityController>().isAlive())
+                Move();
+
+            if (Cursor.lockState != CursorLockMode.None)
                 Turn();
 
-            if (Input.GetKey("d") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("w") || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
             {
-                if (!submarineEngineSound.isPlaying)
-                {
-                    submarineEngineSound.Play();
-                }
+                if (!SoundManager.instance.engineSource.isPlaying)
+                    SoundManager.instance.PlaySingle(SoundManager.instance.engineSource, submarineEngineSound);
             }
             else
             {
-
-                if (submarineEngineSound.isPlaying)
-                {
-                    submarineEngineSound.Stop();
-                }
+                SoundManager.instance.StopMusic(SoundManager.instance.engineSource);
             }
         }
 
@@ -136,6 +134,15 @@ namespace Thalass {
 
             m_rigidbody.velocity *= 1.25f;
             m_rigidbody.angularVelocity *= 0f;
+        }
+
+        public bool isAlive()
+        {
+            if (m_submarine.Battery.Current <= 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         void OnCollisionEnter(Collision collision) {
