@@ -20572,6 +20572,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 708.8567
@@ -35275,7 +35279,7 @@ MonoBehaviour:
   m_batteryManager: {fileID: 1157943775}
   m_armorManager: {fileID: 1167355547}
   m_exitHeight: 10
-  m_exitTimerDelay: 10
+  m_exitTimerDelay: 5
   m_countDown: {fileID: 1727184344}
   softMusic: {fileID: 8300000, guid: 1310d6487ccaaad45a43b220fe06391e, type: 3}
 --- !u!4 &1171707981

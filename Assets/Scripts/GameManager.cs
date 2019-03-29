@@ -43,6 +43,7 @@ namespace Thalass {
         void Start() {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
             SoundManager.instance.PlayMusic(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
             SoundManager.instance.PlaySingle(SoundManager.instance.musicSource, SoundManager.instance.ambientUnderWater);
 
@@ -54,13 +55,6 @@ namespace Thalass {
         {
             m_batteryObserver.Dispose();
             m_armorObserver.Dispose();
-        }
-
-        void Update() {
-            /*
-            if (Input.GetKeyUp(KeyCode.Escape))
-                ToggleCursor();
-            */
         }
 
         void LateUpdate() {
@@ -92,11 +86,7 @@ namespace Thalass {
         private IEnumerator GoToUpgradeSubmarineScene()
         {
             yield return new WaitForSeconds(1);
-            SceneManager.LoadScene("Upgrade_Submarine", LoadSceneMode.Additive);
-        }
-
-        void ToggleCursor() {
-            Cursor.lockState = (Cursor.lockState == CursorLockMode.None) ? CursorLockMode.Locked : CursorLockMode.None;
+            SceneManager.LoadScene("Upgrade_Submarine");
         }
     }
 }

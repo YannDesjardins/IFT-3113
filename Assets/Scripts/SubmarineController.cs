@@ -97,7 +97,6 @@ namespace Thalass {
             if(Physics.CapsuleCast(p1, p2, 0.75f, m_moveVelocity, out RaycastHit hit, 1, m_layerCollision)) {
 
                 m_moveVelocity = Vector3.Reflect(m_moveVelocity, hit.normal);
-                m_submarine.Propulsion.Current *= 0;
                 m_rigidbody.MovePosition(m_rigidbody.position + m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.deltaTime / 10);
 
             }

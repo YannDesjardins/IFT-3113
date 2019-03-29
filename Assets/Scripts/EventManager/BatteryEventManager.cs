@@ -20,7 +20,7 @@ namespace Thalass
 
         private void GoToUpgradeSubmarineScene()
         {
-            SceneManager.LoadScene("Upgrade_Submarine", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Upgrade_Submarine");
         }
 
         public void OnNext(Entities.Element.Values value)
