@@ -41,6 +41,9 @@ namespace Thalass {
         Vector3 m_moveVelocity = Vector3.zero;
         Quaternion m_turnVelocity = Quaternion.identity;
 
+        [SerializeField]
+        LayerMask m_layerCollision;
+
         public AudioClip submarineEngineSound;
         
         void Start() {
@@ -84,6 +87,19 @@ namespace Thalass {
             else
             {
                 SoundManager.instance.StopMusic(SoundManager.instance.engineSource);
+            }
+        }
+
+        void Update() {
+            Vector3 p1 = transform.position + transform.forward;
+            Vector3 p2 = transform.position - transform.forward;
+
+            if(Physics.CapsuleCast(p1, p2, 0.75f, m_moveVelocity, out RaycastHit hit, 1, m_layerCollision)) {
+
+                m_moveVelocity = Vector3.Reflect(m_moveVelocity, hit.normal);
+                m_submarine.Propulsion.Current *= 0;
+                m_rigidbody.MovePosition(m_rigidbody.position + m_moveVelocity.normalized * m_submarine.Propulsion.Current * Time.deltaTime / 10);
+
             }
         }
 
@@ -151,10 +167,6 @@ namespace Thalass {
                 return false;
             }
             return true;
-        }
-
-        void OnCollisionEnter(Collision collision) {
-
         }
     }
 }
