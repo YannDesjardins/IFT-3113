@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad25205730cfae489497492be7814c2, type: 3}
   m_Name: Range_Small_Aggressive
   m_EditorClassIdentifier: 
-  m_id: db99aee5-3c15-4ef1-adc7-abaf67c15a90
+  m_id: 9ae9502c-9268-49ca-a958-4c629028866d
   m_name: Small Fish
   m_health: 20
   m_damage: 5
   m_comportement: 1
-  m_crusingSpeed: 1
-  m_reactionSpeed: 4
-  m_reactionRange: 5
+  m_crusingSpeed: 3
+  m_reactionSpeed: 5
+  m_reactionRange: 10
   m_territoryRange: 20
   m_reactionCooldown: 3
