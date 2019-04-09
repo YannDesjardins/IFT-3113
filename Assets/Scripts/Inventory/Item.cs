@@ -11,11 +11,6 @@ namespace Thalass.Inventory {
     [CreateAssetMenu(fileName = "Item", menuName = "Inventory/Item")]
     public class Item : ScriptableObject, IEquatable<Item> {
 
-        [SerializeField]
-        [Tooltip("Unique ID | For information only.")]
-        string m_id = "";
-        public Guid ID { get; private set; } = Guid.NewGuid();
-
         [Space]
         [SerializeField]
         string m_name = "No Name";
@@ -41,14 +36,9 @@ namespace Thalass.Inventory {
         }
 
         public Item(Guid _id, string _name, Sprite _icon, string _description) {
-            ID = _id;
             m_name = _name;
             m_icon = _icon;
             m_description = _description;
-        }
-
-        void OnValidate() {
-            m_id = ID.ToString();
         }
 
         #region Equatable interface.
@@ -59,13 +49,13 @@ namespace Thalass.Inventory {
         public bool Equals(Item other) {
             return other != null &&
                    base.Equals(other) &&
-                   ID.Equals(other.ID);
+                   name.Equals(other.name);
         }
 
         public override int GetHashCode() {
             var hashCode = 2082127350;
             hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(ID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
             return hashCode;
         }
 

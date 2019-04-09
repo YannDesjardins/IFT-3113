@@ -16,10 +16,6 @@ namespace Thalass.Inventory {
         [SerializeField]
         Item m_item = null;
 
-        public Guid ID {
-            get { return (m_item) ? m_item.ID : Guid.Empty; }
-        }
-
         public string Name {
             get { return (m_item) ? m_item.Name : "Empty"; }
         }
@@ -75,10 +71,7 @@ namespace Thalass.Inventory {
         }
 
         public override int GetHashCode() {
-            var hashCode = 1505572158;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(ID);
-            return hashCode;
+            return m_item.GetHashCode();
         }
 
         public static bool operator ==(Stack stack1, Stack stack2) {

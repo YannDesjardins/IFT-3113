@@ -33,6 +33,10 @@ namespace Thalass.Player {
             get { return m_submarine.Weaponry.Current; }
         }
 
+        [Space]
+        [SerializeField]
+        LootMessagePanel m_lootPanel = null;
+
         void Start() {
             m_storage.SetMaxStacks(Mathf.CeilToInt(m_submarine.Storage.Maximum));
             m_storage.Clear(); //DEBUG.
@@ -97,6 +101,7 @@ namespace Thalass.Player {
         }
 
         public void Harvest(Inventory.Stack _stack) {
+            m_lootPanel.Message(_stack.Name);
             m_storage.Add(_stack);
         }
     }

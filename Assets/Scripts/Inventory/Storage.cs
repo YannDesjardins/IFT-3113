@@ -24,7 +24,7 @@ namespace Thalass.Inventory {
 
         public Stack Add(Stack _stack) {
             //Find all stacks.
-            List<Stack> stacks = m_stacks.FindAll(x => x.ID == _stack.ID);
+            List<Stack> stacks = m_stacks.FindAll(x => x.Name == _stack.Name);
 
             //Fill stacks.
             foreach(Stack stack in stacks) {
@@ -52,7 +52,7 @@ namespace Thalass.Inventory {
 
         public bool Remove(Item _item, int _quantity) {
             //Find all stacks.
-            List<Stack> stacks = m_stacks.FindAll(x => x.ID == _item.ID);
+            List<Stack> stacks = m_stacks.FindAll(x => x.Name == _item.Name);
 
             //Count ressources.
             int count = stacks.Sum(x => x.Quantity);
@@ -78,7 +78,7 @@ namespace Thalass.Inventory {
 
         public int Count(Item _item) {
             //Find all stacks.
-            List<Stack> stacks = m_stacks.FindAll(x => x.ID == _item.ID);
+            List<Stack> stacks = m_stacks.FindAll(x => x.Name == _item.Name);
 
             //Count stacks.
             return m_stacks.Sum(x => x.Quantity);
@@ -90,14 +90,12 @@ namespace Thalass.Inventory {
 
         #region Observable pattern
         public struct Values {
-            public Guid ID { get; }
             public string Name { get; }
             public Sprite Icon { get; }
             public string Description { get; }
             public int Quantity { get; }
 
             public Values(Stack _stack) {
-                ID = _stack.ID;
                 Name = _stack.Name;
                 Icon = _stack.Icon;
                 Description = _stack.Description;
