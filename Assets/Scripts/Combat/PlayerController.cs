@@ -149,7 +149,7 @@ public class PlayerController : EntityController {
     {
         if (this.GetComponent<Thalass.SubmarineController>() != null)
         {
-            this.GetComponent<Thalass.SubmarineController>().GetDamaged(this.GetComponent<EntityController>().getDamage());
+            this.GetComponent<Thalass.SubmarineController>().GetDamaged(damage);
             if (!this.GetComponent<Thalass.SubmarineController>().isAlive())
             {
                 this.Die();

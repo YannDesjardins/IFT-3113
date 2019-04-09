@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 100
-  baseDamage: 5
+  baseDamage: 15
   level: 1
   pseudo: The Great Shark
   fadeSpeed: 10
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 100
-  baseDamage: 5
+  baseDamage: 15
   level: 1
   pseudo: Bite
   fadeSpeed: 10

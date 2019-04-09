@@ -27,8 +27,8 @@ namespace Thalass
         {
             if (value.Current <= 0)
             {
-                Debug.Log("No more armor: Emergency exit");
-                Invoke("GoToUpgradeSubmarineScene", 4.0f);
+                //Debug.Log("No more armor: Emergency exit");
+               // Invoke("GoToUpgradeSubmarineScene", 4.0f);
             }
         }
     }
