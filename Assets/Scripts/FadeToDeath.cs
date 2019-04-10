@@ -6,9 +6,9 @@ using UnityEngine;
 public class FadeToDeath : MonoBehaviour
 {
     [SerializeField]
-    CanvasGroup m_canvas;
+    CanvasGroup m_canvas = null;
     [SerializeField]
-    TMP_Text m_text;
+    TMP_Text m_text = null;
 
     [SerializeField]
     float m_delay = 5.0f;
@@ -20,7 +20,7 @@ public class FadeToDeath : MonoBehaviour
 
     public void Init(string _name)
     {
-        m_text.text = "+1 " + _name + " part";
+        m_text.text = "+1 " + _name + " upgrade part";
         m_delayTime = Time.timeSinceLevelLoad + m_delay;
     }
 

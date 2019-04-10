@@ -1,5 +1,6 @@
 ﻿using System;
 using Thalass.Entities;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ namespace Thalass.UI {
 
         [SerializeField]
         Button m_button = null;
+
+        [SerializeField]
+        TMP_Text m_count = null;
 
         [SerializeField]
         Slider m_slider = null;
@@ -21,8 +25,17 @@ namespace Thalass.UI {
         }
 
         public void OnNext(Element.Values value) {
+
+            string count = value.Count.ToString();
+            if (value.Count >= 100)
+                count = "99+";
+
+            m_count.text = count + "/" + value.Cost.ToString();
+            if (value.Level >= 5)
+                m_count.text = "";
+
             m_slider.value = value.Level;
-            m_button.interactable = (value.Level < 5);
+            m_button.interactable = (value.Level < 5 && value.Count >= value.Cost);
         }
     }
 }

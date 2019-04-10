@@ -34,6 +34,21 @@ namespace Thalass.Entities {
             get { return Mathf.Clamp01(Current / Maximum); }
         }
 
+        [Space]
+        [SerializeField]
+        int m_count = 0;
+        public int Count {
+            get { return m_count; }
+            set {
+                m_count = (value <= 0) ? 0 : value;
+                Rollout();
+            }
+        }
+
+        public int UpgradeCost {
+            get { return Mathf.CeilToInt(Mathf.Pow((int)m_level, 2)); }
+        }
+
         /// <summary>
         /// Move up level enum by one.
         /// </summary>
@@ -56,12 +71,17 @@ namespace Thalass.Entities {
         #region Observable pattern
         public struct Values {
             public int Level { get; }
+            public int Count { get; }
+            public int Cost { get; }
 
             public float Current { get; }
             public float Maximum { get; }
 
-            public Values(int _level, float _current, float _maximum) {
+            public Values(int _level, int _count, int _cost, float _current, float _maximum) {
                 Level = _level;
+                Count = _count;
+                Cost = _cost;
+
                 Current = _current;
                 Maximum = _maximum;
             }
@@ -78,7 +98,7 @@ namespace Thalass.Entities {
             if (!m_observers.Contains(_observer))
                 m_observers.Add(_observer);
 
-            _observer.OnNext(new Values((int)Level, Current, Maximum));
+            _observer.OnNext(new Values((int)Level, Count, UpgradeCost, Current, Maximum));
             return new Unsubscriber<Values>(m_observers, _observer);
         }
 
@@ -86,7 +106,7 @@ namespace Thalass.Entities {
         /// Warn every registered observers about a value change.
         /// </summary>
         void Rollout() {
-            Values values = new Values((int)Level, Current, Maximum);
+            Values values = new Values((int)Level, Count, UpgradeCost, Current, Maximum);
 
             foreach (IObserver<Values> observer in m_observers)
                 observer.OnNext(values);

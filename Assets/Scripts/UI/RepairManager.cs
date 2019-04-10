@@ -11,7 +11,7 @@ namespace Thalass.UI {
 
         [Space]
         [SerializeField]
-        RepairElement m_battery = null;
+        EnergyElement m_battery = null;
         IDisposable m_batteryObserver = null;
         [SerializeField]
         float m_batteryRepairRate = 5.0f;
@@ -41,6 +41,7 @@ namespace Thalass.UI {
         }
 
         public void RepairArmor() {
+            m_submarine.Count--;
             m_submarine.Armor.Current += m_armorRepairRate;
         }
     }

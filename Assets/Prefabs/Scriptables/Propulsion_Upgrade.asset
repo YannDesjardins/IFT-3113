@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f92df061c0b3694ea6463ea333f2926, type: 3}
   m_Name: Propulsion_Upgrade
   m_EditorClassIdentifier: 
-  m_name: Propulsion Upgrade part
+  m_name: Engine Upgrade part
   m_icon: {fileID: 0}
   m_description: 
