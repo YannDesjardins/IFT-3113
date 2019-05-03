@@ -4,7 +4,7 @@ namespace Thalass.Entities {
     public class Deposit : MonoBehaviour {
         [Header("Loot")]
         [SerializeField]
-        Inventory.Item m_item = null;
+        ElementType m_element;
 
         [SerializeField]
         int m_quantity = 0;
@@ -17,7 +17,7 @@ namespace Thalass.Entities {
             m_hardness -= _extractor.Damage;
 
             if (m_hardness <= 0) {
-                _extractor.Harvest(new Inventory.Stack(m_item, m_quantity));
+                _extractor.Harvest(m_element, m_quantity);
                 Break();
             }
         }
@@ -26,5 +26,13 @@ namespace Thalass.Entities {
         public void Break() {
             Destroy(gameObject);
         }
+    }
+
+    public enum ElementType {
+        Armor,
+        Battery,
+        Engine,
+        Taser,
+        Repair
     }
 }

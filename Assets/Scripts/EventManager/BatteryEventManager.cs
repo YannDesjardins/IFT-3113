@@ -28,7 +28,7 @@ namespace Thalass
             if (value.Current <= 0)
             {
                 Debug.Log("Battery empty: Emergency exit");
-                Invoke("GoToUpgradeSubmarineScene", 4.0f);
+                Invoke("GoToUpgradeSubmarineScene", 6.0f);
             }
         }
     }

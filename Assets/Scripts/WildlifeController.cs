@@ -31,6 +31,8 @@ namespace Thalass {
 
         void Start() {
             //m_health = m_wildlife.Health;
+            if (m_wildlife == null)
+                return;
 
             m_spawnPosition = transform.position;
             GenerateTarget(transform.position);
@@ -44,6 +46,9 @@ namespace Thalass {
         }
 
         void Update() {
+
+            if (m_wildlife == null)
+                return;
 
             switch (m_reaction) {
                 //Idle, waiting for next target.

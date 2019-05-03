@@ -107,10 +107,10 @@ public class EntityController : MonoBehaviour {
     {
         if (dmg >= 0)
         {
-            damage = dmg;
+            this.damage = dmg;
         } else
         {
-            dmg = 0;
+            this.damage = 5;
         }
     }
 
@@ -155,7 +155,7 @@ public class EntityController : MonoBehaviour {
 
     public int getDamage()
     {
-        return damage;
+        return this.damage;
     }
 
     public virtual void takeDamage(int amount)

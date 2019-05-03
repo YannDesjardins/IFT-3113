@@ -40,5 +40,12 @@ namespace Thalass.Entities {
         public Element Storage {
             get { return m_storage; }
         }
+
+        [SerializeField]
+        int m_count = 0;
+        public int Count {
+            get { return m_count; }
+            set { m_count = (value <= 0) ? 0 : value; }
+        }
     }
 }
